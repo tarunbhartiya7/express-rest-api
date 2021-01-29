@@ -2,9 +2,17 @@ const { validationResult } = require("express-validator");
 const Post = require("../models/post");
 
 const getPosts = async (req, res, next) => {
+  const currentPage = req.query.page || 1;
+  const perPage = 2; // show two records per page
   try {
-    const posts = await Post.find();
-    res.status(200).json({ posts });
+    const totalItems = await Post.find().countDocuments();
+    if (totalItems < currentPage * perPage) {
+      throw new Error("Invalid Page");
+    }
+    const posts = await Post.find()
+      .skip((currentPage - 1) * perPage)
+      .limit(perPage);
+    res.status(200).json({ posts, totalItems });
   } catch (error) {
     next(error); // pass this error to error handling middleware
   }

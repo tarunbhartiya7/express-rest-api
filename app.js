@@ -22,18 +22,20 @@ app.get("/", (req, res) => {
 });
 
 app.use((error, req, res, next) => {
-  const { statusCode, message } = error;
-  if (!statusCode) {
-    statusCode = 500; // 500 is server side error
-  }
-  res.status(statusCode).json({
+  const { message } = error;
+  // 500 is server side error
+  res.status(error.statusCode || 500).json({
     message,
   });
 });
 
 mongoose
   .connect(
-    "mongodb+srv://sam:CLguEEdLPjyNTBZg@cluster0.3iiam.mongodb.net/shop?retryWrites=true&w=majority"
+    "mongodb+srv://sam:CLguEEdLPjyNTBZg@cluster0.3iiam.mongodb.net/shop?retryWrites=true&w=majority",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
   )
   .then(() => {
     app.listen(port, () => {
