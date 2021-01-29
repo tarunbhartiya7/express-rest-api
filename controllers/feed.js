@@ -16,6 +16,7 @@ const getPosts = async (req, res, next) => {
       hasPreviousPage: currentPage > 1,
       nextPage: currentPage + 1,
       previousPage: currentPage - 1,
+      lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE),
     });
   } catch (error) {
     next(error); // pass this error to error handling middleware
