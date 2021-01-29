@@ -4,7 +4,7 @@ const ITEMS_PER_PAGE = 2;
 
 const getPosts = async (req, res, next) => {
   try {
-    const currentPage = parseInt(req.query.page) || 1;
+    const currentPage = +req.query.page || 1;
     const totalItems = await Post.find().countDocuments();
     const posts = await Post.find()
       .skip((currentPage - 1) * ITEMS_PER_PAGE)
@@ -12,6 +12,7 @@ const getPosts = async (req, res, next) => {
     res.status(200).json({
       posts,
       totalItems,
+      currentPage,
       hasNextPage: ITEMS_PER_PAGE * currentPage < totalItems,
       hasPreviousPage: currentPage > 1,
       nextPage: currentPage + 1,
