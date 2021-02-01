@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const feedRoutes = require("./routes/feed");
+const authRoutes = require("./routes/auth");
 const app = express();
 const port = 3000;
 
@@ -16,16 +17,18 @@ app.use((req, res, next) => {
 });
 
 app.use("/feed", feedRoutes);
+app.use("/auth", authRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
 app.use((error, req, res, next) => {
-  const { message } = error;
+  const { message, data } = error;
   // 500 is server side error
   res.status(error.statusCode || 500).json({
     message,
+    data,
   });
 });
 
