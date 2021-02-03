@@ -57,13 +57,11 @@ const login = (req, res, next) => {
         "somesupersecretkey",
         { expiresIn: "1h" }
       );
-      res
-        .status(200)
-        .json({
-          message: "Login successfull",
-          token,
-          userId: loadedUser._id.toString(),
-        });
+      res.status(200).json({
+        message: "Login successfull",
+        token,
+        userId: loadedUser._id.toString(),
+      });
     })
     .catch((err) => next(err));
 };
