@@ -25,7 +25,7 @@ router.post(
         return true;
       }),
     body("description")
-      .isAlphanumeric()
+      .matches(/^[a-z0-9 ]+$/i)
       .withMessage("Please enter only alpha numeric characters"),
   ],
   feedController.createPost
