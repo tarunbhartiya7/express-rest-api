@@ -1,10 +1,10 @@
-const { validationResult } = require("express-validator");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+import { validationResult } from "express-validator";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
-const User = require("../models/users");
+import User from "../models/users.js";
 
-const signUp = (req, res, next) => {
+export const signUp = (req, res, next) => {
   // validate the incoming request
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -30,7 +30,7 @@ const signUp = (req, res, next) => {
     .catch((err) => next(err));
 };
 
-const login = (req, res, next) => {
+export const login = (req, res, next) => {
   const { email, password } = req.body;
   let loadedUser;
   User.findOne({ email })
@@ -66,7 +66,7 @@ const login = (req, res, next) => {
     .catch((err) => next(err));
 };
 
-module.exports = {
-  signUp,
-  login,
-};
+// export default {
+//   signUp,
+//   login,
+// };

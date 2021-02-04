@@ -1,9 +1,10 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
+// const express = require("express");
+import express from "express";
+import bodyParser from "body-parser";
+import mongoose from "mongoose";
 
-const feedRoutes = require("./routes/feed");
-const authRoutes = require("./routes/auth");
+import feedRoutes from "./routes/feed.js";
+import authRoutes from "./routes/auth.js";
 
 const app = express();
 const port = 3000;

@@ -1,13 +1,19 @@
-const express = require("express");
-const { body } = require("express-validator");
+import express from "express";
+import { body } from "express-validator";
 
-const feedController = require("../controllers/feed");
-const isAuth = require("../middleware/is-auth");
+import {
+  getPost,
+  getPosts,
+  deletePost,
+  editPost,
+  createPost,
+} from "../controllers/feed.js";
+import isAuth from "../middleware/is-auth.js";
 
 const router = express.Router();
 
 // GET /feed/posts/
-router.get("/posts", isAuth, feedController.getPosts);
+router.get("/posts", isAuth, getPosts);
 
 // POST /feed/post
 router.post(
@@ -28,11 +34,11 @@ router.post(
       .matches(/^[a-z0-9 ]+$/i)
       .withMessage("Please enter only alpha numeric characters"),
   ],
-  feedController.createPost
+  createPost
 );
 
 // GET /feed/post/:postId
-router.get("/post/:postId", isAuth, feedController.getPost);
+router.get("/post/:postId", isAuth, getPost);
 
 // Update /feed/post
 router.put(
@@ -53,10 +59,12 @@ router.put(
       .isAlphanumeric()
       .withMessage("Please enter only alpha numeric characters"),
   ],
-  feedController.editPost
+  editPost
 );
 
 // DELETE /feed/post/:postId
-router.delete("/post/:postId", isAuth, feedController.deletePost);
+router.delete("/post/:postId", isAuth, deletePost);
 
-module.exports = router; // this is default import
+// module.exports = router; // this is default import
+
+export default router;

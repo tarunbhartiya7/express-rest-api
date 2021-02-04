@@ -1,10 +1,10 @@
-const { validationResult } = require("express-validator");
+import { validationResult } from "express-validator";
 
-const Post = require("../models/post");
-const User = require("../models/users");
+import Post from "../models/post.js";
+import User from "../models/users.js";
 const ITEMS_PER_PAGE = 2;
 
-const getPosts = async (req, res, next) => {
+export const getPosts = async (req, res, next) => {
   try {
     const currentPage = +req.query.page || 1;
     const totalItems = await Post.find().countDocuments();
@@ -26,7 +26,7 @@ const getPosts = async (req, res, next) => {
   }
 };
 
-const getPost = async (req, res, next) => {
+export const getPost = async (req, res, next) => {
   const postId = req.params.postId;
   try {
     const post = await Post.findById(postId);
@@ -41,7 +41,7 @@ const getPost = async (req, res, next) => {
   }
 };
 
-const createPost = async (req, res, next) => {
+export const createPost = async (req, res, next) => {
   try {
     const { title, description } = req.body;
     const post = new Post({
@@ -72,7 +72,7 @@ const createPost = async (req, res, next) => {
   }
 };
 
-const editPost = async (req, res, next) => {
+export const editPost = async (req, res, next) => {
   try {
     const { title, description } = req.body;
     const postId = req.params.postId;
@@ -106,7 +106,7 @@ const editPost = async (req, res, next) => {
   }
 };
 
-const deletePost = async (req, res, next) => {
+export const deletePost = async (req, res, next) => {
   try {
     const postId = req.params.postId;
     const post = await Post.findById(postId);
@@ -138,10 +138,18 @@ const deletePost = async (req, res, next) => {
 };
 
 // this is named imports
-module.exports = {
-  getPosts,
-  createPost,
-  getPost,
-  deletePost,
-  editPost,
-};
+// module.exports = {
+//   getPosts,
+//   createPost,
+//   getPost,
+//   deletePost,
+//   editPost,
+// };
+
+// export default {
+//   getPosts,
+//   createPost,
+//   getPost,
+//   deletePost,
+//   editPost,
+// };
