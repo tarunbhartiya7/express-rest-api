@@ -59,4 +59,4 @@ router.put(
 // DELETE /feed/post/:postId
 router.delete("/post/:postId", isAuth, feedController.deletePost);
 
-module.exports = router;
+module.exports = router; // this is default import

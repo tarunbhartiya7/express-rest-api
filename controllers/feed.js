@@ -137,6 +137,7 @@ const deletePost = async (req, res, next) => {
   }
 };
 
+// this is named imports
 module.exports = {
   getPosts,
   createPost,
